@@ -1,1 +1,1 @@
-A Tick Tack Toe game project from Odin Project.
+A Tick Tack Toe game project from The Odin Project.
