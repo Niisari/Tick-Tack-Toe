@@ -12,13 +12,13 @@ const Gameboard = (() => {
         [2, 4, 6]
     ];
 
-    const getBoard = () => [...board];
+    const getBoard = () => [...board]; // return a copy of the board
 
     const resetBoard = () => {
         board = ["", "", "", "", "", "", "", "", ""];
     };
 
-    const setMark = (index, mark) => {
+    const setMark = (index, mark) => { // "X" or "O"
         if (index >= 0 && index < 9 && board[index] === "") {
             board[index] = mark;
             return true;
@@ -27,7 +27,7 @@ const Gameboard = (() => {
     };
 
     const checkWin = () => {
-        for (let condition of winConditions) {
+        for (let condition of winConditions) { // destructuring
             const [a, b, c] = condition;
             if (board[a] && board[a] === board[b] && board[a] === board[c]) {
                 return board[a]; // "X" or "O"
@@ -36,7 +36,7 @@ const Gameboard = (() => {
         return null;
     };
 
-    const isFull = () => board.every(cell => cell !== "");
+    const isFull = () => board.every(cell => cell !== ""); // check for draw
 
     return { getBoard, resetBoard, setMark, checkWin, isFull };
 })();
@@ -45,7 +45,7 @@ const gameController = (() => {
     let currentPlayer = "X";
     let gameOver = false;
 
-    const switchPlayer = () => {
+    const switchPlayer = () => { // toggle between "X" and "O"
         currentPlayer = currentPlayer === "X" ? "O" : "X";
         userInterface.updateMessage(`Player ${currentPlayer}'s turn`);
     };
@@ -70,7 +70,7 @@ const gameController = (() => {
         }
     };
 
-    const resetGame = () => {
+    const resetGame = () => { // reset everything
         Gameboard.resetBoard();
         currentPlayer = "X";
         gameOver = false;
@@ -81,11 +81,11 @@ const gameController = (() => {
     return { getCurrentPlayer, playGame, resetGame };
 })();
 
-const userInterface = (() => {
+const userInterface = (() => { // DOM manipulation
     const cells = document.querySelectorAll(".cell");
     const message = document.getElementById("message");
 
-    const updateBoard = () => {
+    const updateBoard = () => { // render the board
         const board = Gameboard.getBoard();
         cells.forEach((cell, index) => {
             cell.textContent = board[index];
@@ -96,7 +96,7 @@ const userInterface = (() => {
         message.textContent = msg;
     };
 
-    cells.forEach((cell, index) => {
+    cells.forEach((cell, index) => { // add click event to each cell
         cell.addEventListener("click", () => {
             gameController.playGame(index);
         });
