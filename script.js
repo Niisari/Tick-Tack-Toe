@@ -14,7 +14,7 @@ const Gameboard = (() => {
 
     const getBoard = () => [...board]; // return a copy of the board
 
-    const resetBoard = () => {
+    const resetBoard = () => { // clear the board
         board = ["", "", "", "", "", "", "", "", ""];
     };
 
@@ -84,6 +84,11 @@ const gameController = (() => {
 const userInterface = (() => { // DOM manipulation
     const cells = document.querySelectorAll(".cell");
     const message = document.getElementById("message");
+    const button = document.getElementById("reset");
+
+    button.addEventListener("click", () => { // reset button event
+        gameController.resetGame();
+    });
 
     const updateBoard = () => { // render the board
         const board = Gameboard.getBoard();
